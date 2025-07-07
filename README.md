@@ -17,7 +17,7 @@ Dataset preparation : Store the dataset path in json file.
 
 ## Training
 
-To train L2I, run the script [](./train_SECOND.sh)
+To train Pseudo-SD, run the script [](./train_SECOND.sh)
 ```shell
 CUDA_VISIBLE_DEVICES=0 python main.py --base ./configs/stable-diffusion/v1-finetune_SECOND.yaml \
     -t \
