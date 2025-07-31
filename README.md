@@ -57,8 +57,6 @@ CUDA_VISIBLE_DEVICES=0 python LIS_AB.py --batch_size 8 \
     --plms
 ```
 
-We provide the trained SECOND dataset weights [here](https://drive.google.com/file/d/1m0j4ej6ELfDyHSOAupRX8NYKkMJvvURM/view?usp=drive_link).
-
 If you want to generate images using weights trained on a custom dataset
 1. Modify the dataset parameter in the run parameter to the name of the customized dataset
 2. Add the information of the customized dataset in the [inference file](./LIS_AB.py)
