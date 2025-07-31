@@ -19,14 +19,15 @@ Dataset preparation : Store the dataset path in json file.
 
 To train Pseudo-SD, run the script [](./sample_Cityscapes_pseudo_balance_rate_clasee.sh)
 ```shell
-CUDA_VISIBLE_DEVICES=0 python main.py --base ./configs/stable-diffusion/v1-finetune_Cityscapes.yaml \
-    -t \
-    --actual_resume ./models/ldm/stable-diffusion/sd-v1-4-full-ema.ckpt \
-    -n exp_CityscapesBalance_PseudoSD \
-    --gpus 0, \
-    --data_root ./data/  \
-    --no-test \
-    --json_file ./data/
+CUDA_VISIBLE_DEVICES=0 nohup python main.py --base configs/stable-diffusion/v1-finetune_Cityscapes.yaml \
+                                      -t \
+                                      --actual_resume models/ldm/stable-diffusion/sd-v1-4-full-ema.ckpt \
+                                      -n exp_cityscapes_masked_pseudo_rate_class \
+                                      --gpus 0, \
+                                      --data_root /data/UniMatch-main/dataset/Cityscapes/ \
+                                      --train_txt_file /data/splits/cityscapes/DTST_DIFF/rate_class.txt \
+                                      --val_txt_file /data/DTST/datasets/cityscapes_val_list.txt \
+				      > logs/cityscapes_train_pseudo.file 2>&1 &
 ```
 If you want to train with a custom dataset
 1. Generate a [json file](./data/SECOND_train_0.8.json) for the custom dataset with its path information.
@@ -47,14 +48,15 @@ Before generating images, [a json file](./data/sample_4.json) containing layout 
 
 To generate images using L2I, run the script [](./sample_SECOND_AB.sh)
 ```shell
-CUDA_VISIBLE_DEVICES=0 python LIS_AB.py --batch_size 8 \
-    --config ./configs/stable-diffusion/v1-finetune_SECOND.yaml \
-    --ckpt ./logs/exp_SECOND_from_SCD/checkpoints/last.ckpt \
-    --dataset SECOND \
-    --outdir ./outputs/SECOND_LIS_AB \
-    --txt_file ./data/sample_4.json \
-    --data_root ./data/SECOND \
-    --plms
+CUDA_VISIBLE_DEVICES=1 nohup python LIS.py --batch_size 10 \
+                                           --out_num 1000 \
+                                             --config configs/stable-diffusion/v1-finetune_Cityscapes.yaml \
+					     --ckpt logs/exp_cityscapes_masked_pseudo_rate_class/checkpoints/last.ckpt \
+                                             --dataset CityscapesBalance \
+					     --outdir outputs/Cityscapes_LIS_mask_pseudo_balance_rate_class \
+                                             --txt_file /data/1_2/1_2.p  \
+                                             --data_root /data/seco/ \
+                                             --plms > logs/LIS_hard_pseudo_balance_rate_class.logs 2>&1 &
 ```
 
 If you want to generate images using weights trained on a custom dataset
