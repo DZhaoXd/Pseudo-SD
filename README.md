@@ -17,16 +17,16 @@ Dataset preparation : Store the dataset path in json file.
 
 ## Training
 
-To train Pseudo-SD, run the script [](./train_SECOND.sh)
+To train Pseudo-SD, run the script [](./sample_Cityscapes_pseudo_balance_rate_clasee.sh)
 ```shell
-CUDA_VISIBLE_DEVICES=0 python main.py --base ./configs/stable-diffusion/v1-finetune_SECOND.yaml \
+CUDA_VISIBLE_DEVICES=0 python main.py --base ./configs/stable-diffusion/v1-finetune_Cityscapes.yaml \
     -t \
     --actual_resume ./models/ldm/stable-diffusion/sd-v1-4-full-ema.ckpt \
-    -n exp_SECOND_from_SCD \
+    -n exp_CityscapesBalance_PseudoSD \
     --gpus 0, \
-    --data_root ./data/SECOND \
+    --data_root ./data/  \
     --no-test \
-    --json_file ./data/SECOND_train_0.8.json
+    --json_file ./data/
 ```
 If you want to train with a custom dataset
 1. Generate a [json file](./data/SECOND_train_0.8.json) for the custom dataset with its path information.
